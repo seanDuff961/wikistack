@@ -11,9 +11,6 @@ const Page = db.define('page', {
   slug: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {
-      isUrl: true
-    }
   },
   content: {
     type: Sequelize.TEXT,
@@ -23,6 +20,17 @@ const Page = db.define('page', {
     type: Sequelize.ENUM('open', 'closed')
   }
 });
+
+//hook
+Page.beforeValidate((pageInstance) => {
+
+  if (pageInstance.title === undefined || pageInstance.title === null) {
+  pageInstance.slug =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  } else {
+  pageInstance.slug = pageInstance.title.replace(/\s+/gi, '_').replace(/\W/g, '');
+    }
+  });
+
 
 const User = db.define('user', {
   name: {
