@@ -27,6 +27,8 @@ Page.beforeValidate((pageInstance) => {
   if (pageInstance.title === undefined || pageInstance.title === null) {
   pageInstance.slug =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   } else {
+  console.log('pageInstance.title******', pageInstance.title);
+  console.log('pageInstance.content*****', pageInstance.content);
   pageInstance.slug = pageInstance.title.replace(/\s+/gi, '_').replace(/\W/g, '');
     }
   });
